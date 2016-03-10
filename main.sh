@@ -13,6 +13,7 @@ command() {
 }
 
 # Include files
+source help.sh
 source CONFIG
 source utility.sh
 source api.sh
@@ -60,7 +61,14 @@ main() {
 				if [[ ! -z ${CMDS["$cmd"]} ]]; then
 					echo "Command $cmd found."
 
-					echo "$u" | ${CMDS["$cmd"]} "$txt" &
+					local v="$(echo "$txt" | awk -vFPAT="([^ ]+)|('[^']+')" '{for (i=2; i<=NF; i++) print $i;}')"
+					local arr=()
+	
+					while read line; do
+						arr+=("$(echo "$line" | sed -e 's/^'"'"'\(.*\)'"'"'$/\1/')")
+					done <<< "$v"
+
+					echo "$u" | ${CMDS["$cmd"]} "${arr[@]}" &
 					monitor_subshell $! &
 				fi
 			fi
