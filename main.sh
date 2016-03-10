@@ -60,7 +60,7 @@ main() {
 				if [[ ! -z ${CMDS["$cmd"]} ]]; then
 					echo "Command $cmd found."
 
-					${CMDS["$cmd"]} "$u" &
+					echo "$u" | ${CMDS["$cmd"]} "$txt" &
 					monitor_subshell $! &
 				fi
 			fi
