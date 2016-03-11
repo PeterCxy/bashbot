@@ -74,6 +74,15 @@ main() {
 					echo "$u" | ${CMDS["$cmd"]} "${arr[@]}" &
 					monitor_subshell $! &
 				fi
+			else
+				# If there is a command that catches input
+				# Distribute
+				local chat_id=$(echo "$u" | val '"message"' '"chat"' '"id"')
+				local from_id=$(echo "$u" | val '"message"' '"from"' '"id"')
+				if [[ -f "$TMPDIR/$chat_id/$from_id/default" ]]; then
+					echo "$u" | $(cat "$TMPDIR/$chat_id/$from_id/default") &
+					monitor_subshell $! &
+				fi
 			fi
 		done <<< "$updates"
 	done
