@@ -14,6 +14,6 @@ cmd_echo() {
 	parse_msg
 	api_sendMessage \
 		-d "chat_id=$msg_chat_id" \
-		-d "text=$@" \
+		-d "text=$(echo "$@")" \
 		> /dev/null
 }
