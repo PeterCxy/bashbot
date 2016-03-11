@@ -28,8 +28,11 @@ main() {
 	local offset=0
 	while true; do
 		local updates="$(api_getUpdates $offset 10 600 | jval '"result"' '[0-9]+')"
-		while read update; do
-			local u="$(echo $update | lval | $JSON)"
+
+		# Set IFS to empty
+		# Otherwise, it will unescape double quotes in the JSON
+		while IFS= read -r update; do
+			local u="$(echo "$update" | lval | $JSON)"
 			local o=$(echo "$u" | val '"update_id"')
 
 			# Increase the offset value

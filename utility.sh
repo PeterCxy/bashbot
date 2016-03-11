@@ -12,7 +12,7 @@ lval() {
 }
 
 val() {
-	jval $@ | lval
+	jval $@ | lval | sed 's@\\/@/@g; s@\\"@"@g'
 }
 
 monitor_subshell() {
