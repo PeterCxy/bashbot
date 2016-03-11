@@ -35,6 +35,10 @@ main() {
 			local u="$(echo "$update" | lval | $JSON)"
 			local o=$(echo "$u" | val '"update_id"')
 
+			if [[ -z $o ]]; then
+				break
+			fi
+
 			# Increase the offset value
 			if (( "$o" >= "$offset" )); then
 				offset=$((${o#0} +1))
