@@ -2,9 +2,9 @@
 command "hello" cmd_hello "Just hello"
 
 cmd_hello() {
-	local u=$(cat)
+	parse_msg
 	api_sendMessage \
-		-d "chat_id=$(echo "$u" | val '"message"' '"chat"' '"id"')" \
-		-d "text=Hello, @$(echo "$u" | val '"message"' '"from"' '"username"')" \
+		-d "chat_id=$msg_chat_id" \
+		-d "text=Hello, @$msg_from_username" \
 		> /dev/null
 }

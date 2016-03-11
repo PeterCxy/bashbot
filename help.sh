@@ -3,7 +3,7 @@
 command 'help' cmd_help '/help command - Get help with [command]'
 
 cmd_help() {
-	local u="$(cat)"
+	parse_msg
 	local cmd=$1
 	if [[ -z "$cmd" ]]; then
 		cmd="help"
@@ -14,7 +14,7 @@ cmd_help() {
 	fi
 	api_sendMessage \
 		-d "text=$h" \
-		-d "chat_id=$(echo "$u" | val '"message"' '"chat"' '"id"')" \
-		-d "reply_to_message_id=$(echo "$u" | val '"message"' '"message_id"')" \
+		-d "chat_id=$msg_chat_id" \
+		-d "reply_to_message_id=$msg_id" \
 		> /dev/null
 }
