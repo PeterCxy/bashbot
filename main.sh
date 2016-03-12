@@ -14,7 +14,7 @@ command() {
 }
 
 default() {
-	DEFS+="$1"
+	DEFS+=("$1")
 }
 
 # Include files
@@ -93,7 +93,7 @@ main() {
 					monitor_subshell $! &
 				else
 					# We might also dispatch to default processors
-					for d in "$DEFS"; do
+					for d in "${DEFS[@]}"; do
 						echo "$u" | $d &
 						monitor_subshell $! &
 					done
