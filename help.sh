@@ -1,6 +1,10 @@
 #!/bin/bash
 # The /help command
-command 'help' cmd_help '/help command - Get help with [command]'
+command 'help' cmd_help '''
+/help command - Get help with [command]
+To call a command, send `/command_name@bot_name arg1 arg2 ...`
+Wrap an argument with single quotes when containing spaces.
+'''
 
 cmd_help() {
 	parse_msg
