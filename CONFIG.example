@@ -1,0 +1,12 @@
+#!/bin/bash
+# API Token of the bot
+TOKEN="ask_bot_father"
+
+# Commands must finish in 5 secs
+TIMEOUT=5
+
+# Include modules
+source mods/hello.sh
+source mods/reminder.sh
+# You can include more modules here.
+# You may also define more constants for modules.
