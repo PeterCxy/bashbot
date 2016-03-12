@@ -6,10 +6,15 @@ alias echo="echo -e"
 JSON='./libs/JSON.sh/JSON.sh'
 declare -A CMDS
 declare -A HELPS
+declare -a DEFS
 
 command() {
 	CMDS["$1"]="$2"
 	HELPS["$1"]="$3"
+}
+
+default() {
+	DEFS+="$1"
 }
 
 # Include files
@@ -86,6 +91,12 @@ main() {
 				if [[ -f "$TMPDIR/$chat_id/$from_id/default" ]]; then
 					echo "$u" | $(cat "$TMPDIR/$chat_id/$from_id/default") &
 					monitor_subshell $! &
+				else
+					# We might also dispatch to default processors
+					for d in "$DEFS"; do
+						echo "$u" | $d &
+						monitor_subshell $! &
+					done
 				fi
 			fi
 		done <<< "$updates"
