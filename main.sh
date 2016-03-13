@@ -53,6 +53,7 @@ main() {
 
 			# Check if it is a command
 			local txt=$(echo "$u" | val '"message"' '"text"')
+			txt="$(printf "$txt")" # printf does the UTF-8 processing
 			if [[ "$txt" == "/"* ]]; then
 				# A command!
 				local cmd=$(echo "$txt" | awk '{print $1}' | sed 's/\///')
