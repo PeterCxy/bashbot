@@ -1,3 +1,6 @@
 [submodule "libs/JSON.sh"]
 	path = libs/JSON.sh
 	url = https://github.com/dominictarr/JSON.sh
+[submodule "libs/googler"]
+	path = libs/googler
+	url = https://github.com/jarun/googler.git
